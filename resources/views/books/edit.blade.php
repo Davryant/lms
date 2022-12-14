@@ -34,14 +34,14 @@
          <div class="row">
 		    <div class="col-xs-12 col-sm-12 col-md-12">
 		        <div class="form-group">
-		            <strong>Name:</strong>
+		            <strong>Book Name:</strong>
 		            <input type="text" name="name" value="{{ $book->name }}" class="form-control" placeholder="Name">
 		        </div>
 		    </div>
 		    <div class="col-xs-12 col-sm-12 col-md-12">
 		        <div class="form-group">
-		            <strong>Description:</strong>
-		            <textarea class="form-control" style="height:150px" name="description" placeholder="Description">{{ $book->description }}</textarea>
+		            <strong>Author Name:</strong>
+		            <input type="text" value="{{ $book->author_name }}" class="form-control" name="author_name" placeholder="Author name">
 		        </div>
 		    </div>
 		    <div class="col-xs-12 col-sm-12 col-md-12 text-center">

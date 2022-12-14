@@ -11,6 +11,6 @@ class BookLike extends Model
 
     public function likes(): HasMany
     {
-        return $this->hasMany(PostLike::class);
+        return $this->hasMany(BookLike::class);
     }
 }

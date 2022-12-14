@@ -4,6 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Book;
+use App\Models\BookLike;
+use Maize\Markable\Models\Like;
+use Maize\Markable\Models\Favorite;
+use Illuminate\Support\Facades\Auth;
 
 class BookController extends Controller
 {
@@ -48,7 +52,7 @@ class BookController extends Controller
     {
         request()->validate([
             'name' => 'required',
-            'description' => 'required',
+            'author_name' => 'required',
         ]);
     
         Book::create($request->all());
@@ -64,7 +68,19 @@ class BookController extends Controller
      */
     public function show(Book $book)
     {
-        return view('books.show',compact('book'));
+        $like = Book::where('id',$book->id)->whereHasLike(
+            auth()->user()
+        )->get(); // returns the book model with a like from the given user
+
+        $likeCount = Book::where('id',$book->id)->firstOrFail()->likes; // returns the collection of like marks related to the book
+
+        $favorite = Book::where('id',$book->id)->whereHasFavorite(
+            auth()->user()
+        )->get(); // returns the book model with a favorite from the given user
+
+        $favoriteCount = Book::where('id',$book->id)->firstOrFail()->favorites; // returns the collection of favorite marks related to the book
+
+        return view('books.show',compact('book', 'like','favorite','likeCount','favoriteCount'));
     }
 
     /**
@@ -89,12 +105,54 @@ class BookController extends Controller
     {
         request()->validate([
             'name' => 'required',
-            'description' => 'required',
+            'author_name' => 'required',
         ]);
     
         $book->update($request->all());
     
         return redirect()->route('books.index')->with('success','Book updated successfully');
+    }
+
+
+    public function likeBook(Request $request, $id)
+    {
+        $book = Book::where('id', $id)->firstOrFail();
+        $user = Auth::user();
+
+        // $liked = new BookLike();
+        // $liked->book_id = $request->book_id;
+        // $liked->user_id = $request->user_id;
+        // $liked->save();
+        
+        $liked = Like::add($book, $user); // marks the book liked by specific user
+
+
+        if($liked){
+          return response()->json(['message' => 'book liked', 'code' => '200', 'data' => $liked]);
+        }
+        else
+        {
+          return response()->json(['message' => 'Liking a book failed', 'code' => '201']);
+        }
+
+    }
+
+    public function favoriteBook(Request $request, $id)
+    {
+        $book = Book::where('id', $id)->firstOrFail();
+        $user = Auth::user();
+        
+        $favorited = Favorite::add($book, $user); // marks the book favorited by specific user
+
+
+        if($favorited){
+          return response()->json(['message' => 'book added as favorite', 'code' => '200', 'data' => $favorited]);
+        }
+        else
+        {
+          return response()->json(['message' => 'favoriting a book failed', 'code' => '201']);
+        }
+
     }
 
     /**

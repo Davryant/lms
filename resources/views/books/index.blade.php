@@ -1,6 +1,5 @@
 @extends('layouts.app')
 
-
 @section('content')
     <div class="row">
         <div class="col-lg-12 margin-tb">
@@ -22,19 +21,19 @@
         </div>
     @endif
 
-    <div class="card-body" style="background-color: white">
+    <div class="card-body">
     <table class="table table-bordered">
         <tr>
             <th>No</th>
-            <th>Name</th>
-            <th>Description</th>
-            <th width="280px">Action</th>
+            <th>Book Name</th>
+            <th>Author Name</th>
+            <th>Action</th>
         </tr>
 	    @foreach ($books as $book)
 	    <tr>
 	        <td>{{ ++$i }}</td>
 	        <td>{{ $book->name }}</td>
-	        <td>{{ $book->description }}</td>
+	        <td>{{ $book->author_name }}</td>
 	        <td>
                 <form action="{{ route('books.destroy',$book->id) }}" method="POST">
                     <a class="btn btn-info" href="{{ route('books.show',$book->id) }}">Show</a>
@@ -48,14 +47,19 @@
                     @can('book-delete')
                     <button type="submit" class="btn btn-danger">Delete</button>
                     @endcan
+
+                    {{-- <i onclick="myFunction(this)" class="fa fa-thumbs-down" style="color:red"></i>
+                    <a class="fa fa-thumbs-up "></a> --}}
+
+                    
                 </form>
 	        </td>
 	    </tr>
 	    @endforeach
     </table>
-    </div>
 
 
     {!! $books->links() !!}
+    </div>
 
 @endsection

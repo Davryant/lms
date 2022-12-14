@@ -6,6 +6,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\BookController;
+use App\Http\Controllers\CommentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,6 +31,11 @@ Route::group(['middleware' => ['auth']], function() {
     Route::resource('roles', RoleController::class);
     Route::resource('users', UserController::class);
     Route::resource('books', BookController::class);
+    Route::resource('comments', CommentController::class);
+
+    
+    Route::post('/books/like-book/{id}', 'App\Http\Controllers\BookController@likeBook');
+    Route::post('/books/favorite-book/{id}', 'App\Http\Controllers\BookController@favoriteBook');
 });
 
 // Route::get('/user/create', [UserController::class, 'create'])->name('create');

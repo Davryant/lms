@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Book;
-use App\Models\BookLike;
 use Maize\Markable\Models\Like;
 use Maize\Markable\Models\Favorite;
 use Illuminate\Support\Facades\Auth;
@@ -118,14 +117,8 @@ class BookController extends Controller
     {
         $book = Book::where('id', $id)->firstOrFail();
         $user = Auth::user();
-
-        // $liked = new BookLike();
-        // $liked->book_id = $request->book_id;
-        // $liked->user_id = $request->user_id;
-        // $liked->save();
         
         $liked = Like::add($book, $user); // marks the book liked by specific user
-
 
         if($liked){
           return response()->json(['message' => 'book liked', 'code' => '200', 'data' => $liked]);

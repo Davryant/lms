@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers\API;
 
-
-use App\Http\Controllers\API\BaseController as BaseController;
 use Illuminate\Http\Request;
+use App\Http\Controllers\API\BaseController as BaseController;
 use App\Models\Book;
+use Maize\Markable\Models\Like;
 use Validator;
+use DB;
 use App\Http\Resources\BookResource;
    
 class BookController extends BaseController
@@ -16,25 +17,39 @@ class BookController extends BaseController
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $books = Book::get();
+        // return $request->header('Authorization');
+        // $books = Book::all();
+        $books = Book::paginate(request()->all());
     
-        // return $this->sendResponse(BookResource::collection($books), 'Books retrieved successfully.');
-        return BookResource::collection(Book::get());
+        return $this->sendResponse(BookResource::collection($books), 'Books retrieved successfully.');
     }
 
-    public function get_data()
+    public function popularBook()
     {
-        $cargos = Book::get();
+        // $getBook = Book::get();
+        // foreach($getBook as $book){
+        //     $book = Book::where('id', $book->id)->firstOrFail();
+        //     $bookMostLike_old = Like::count($book);
+        // }
+
+        $bookMostLike = DB::table('markable_likes')->selectRaw('markable_id, count(*) as number_of_likes')
+                        ->where('markable_type', 'App\Models\Book')
+                        ->groupBy('markable_id')
+                        ->orderBy('number_of_likes', 'DESC')
+                        ->get();
+
+
+        // dd($bookMostLike);
      
-        if(count($cargos) > 0)
+        if($bookMostLike)
         {
-         return response()->json(['responseCode' => '200','responseMessage' => 'Success', 'cargos' => $cargos]);   
+         return response()->json(['responseCode' => '200','responseMessage' => 'Success', 'Popular Books' => $bookMostLike]);   
         }
         else
         {
-            return response()->json(['responseCode' => '101','responseMessage' => 'No data', 'cargos' => 'NULL']);
+            return response()->json(['responseCode' => '101','responseMessage' => 'No data', 'Popular Books' => 'NULL']);
         }
         
     }
@@ -50,7 +65,7 @@ class BookController extends BaseController
    
         $validator = Validator::make($input, [
             'name' => 'required',
-            'description' => 'required'
+            'author_name' => 'required'
         ]);
    
         if($validator->fails()){
@@ -92,7 +107,7 @@ class BookController extends BaseController
    
         $validator = Validator::make($input, [
             'name' => 'required',
-            'description' => 'required'
+            'author_name' => 'required'
         ]);
    
         if($validator->fails()){
@@ -100,7 +115,7 @@ class BookController extends BaseController
         }
    
         $book->name = $input['name'];
-        $book->detail = $input['description'];
+        $book->author_name = $input['author_name'];
         $book->save();
    
         return $this->sendResponse(new BookResource($book), 'Book updated successfully.');

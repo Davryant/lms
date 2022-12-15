@@ -23,15 +23,20 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 
-  
+//Login
 Route::controller(LoginController::class)->group(function(){
     Route::post('login', 'login');
 });
-        
-Route::middleware('auth:sanctum')->group( function () {
-    Route::resource('books', BookController::class);
-});
+//All books
+Route::resource('books', BookController::class)->middleware("checkToken");
 
-// Route::controller(BookController::class)->group(function(){
-//     Route::get('get_data', 'get_data');
+//popular books
+Route::controller(BookController::class)->group(function(){
+    Route::get('popular_book', 'popularBook')->middleware("checkToken");
+});
+     
+
+
+// Route::middleware('auth:sanctum')->group( function () {
+//     Route::resource('books', App\Http\Controllers\API\BookController::class);
 // });

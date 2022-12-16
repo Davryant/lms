@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 15, 2022 at 01:05 PM
+-- Generation Time: Dec 16, 2022 at 01:51 AM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 8.1.6
 
@@ -5052,7 +5052,8 @@ INSERT INTO `books` (`id`, `name`, `author_name`, `created_at`, `updated_at`, `d
 (4999, '9UsZKfBaQ4SOfnMBT8f6', '4uD1cuT4y6g9KyA', '2022-12-14 09:59:23', '2022-12-14 09:59:23', NULL),
 (5000, 'Wy3rKYmoz6ZBGNEpBd5n', 'Wjce8QUA2BLvogt', '2022-12-14 09:59:23', '2022-12-14 09:59:23', NULL),
 (5001, 'k3JusE1996sc7CK9tM3M', 'EIGId9dvl8wG4wL', '2022-12-14 09:59:23', '2022-12-14 09:59:23', NULL),
-(5002, 'qoelMnT7rBdaDDJInqrk', 'h4tdVGMVcKQPtdA', '2022-12-14 09:59:23', '2022-12-14 09:59:23', NULL);
+(5002, 'qoelMnT7rBdaDDJInqrk', 'h4tdVGMVcKQPtdA', '2022-12-14 09:59:23', '2022-12-14 09:59:23', NULL),
+(5003, 'The End', 'Most Doumbia', '2022-12-15 21:17:27', '2022-12-15 21:17:27', NULL);
 
 -- --------------------------------------------------------
 
@@ -5105,7 +5106,8 @@ INSERT INTO `comments` (`id`, `user_id`, `book_id`, `parent_id`, `comment`, `cre
 (5, 7, 4937, 1, 'ni htar', '2022-12-14 16:08:16', '2022-12-14 16:08:16', NULL),
 (6, 7, 4937, 1, 'nimechokaa', '2022-12-14 16:08:28', '2022-12-14 16:08:28', NULL),
 (7, 1, 4940, NULL, 'By admin', '2022-12-15 08:46:25', '2022-12-15 08:46:25', NULL),
-(8, 9, 4937, 6, 'hahahahahah', '2022-12-15 08:48:49', '2022-12-15 08:48:49', NULL);
+(8, 9, 4937, 6, 'hahahahahah', '2022-12-15 08:48:49', '2022-12-15 08:48:49', NULL),
+(9, 10, 4937, 8, '😃😎', '2022-12-15 20:55:13', '2022-12-15 20:55:13', NULL);
 
 -- --------------------------------------------------------
 
@@ -5145,7 +5147,8 @@ CREATE TABLE `markable_favorites` (
 --
 
 INSERT INTO `markable_favorites` (`id`, `user_id`, `markable_type`, `markable_id`, `value`, `metadata`, `created_at`, `updated_at`) VALUES
-(1, 7, 'App\\Models\\Book', 4937, NULL, NULL, '2022-12-14 16:06:36', '2022-12-14 16:06:36');
+(1, 7, 'App\\Models\\Book', 4937, NULL, NULL, '2022-12-14 16:06:36', '2022-12-14 16:06:36'),
+(2, 10, 'App\\Models\\Book', 4937, NULL, NULL, '2022-12-15 20:55:28', '2022-12-15 20:55:28');
 
 -- --------------------------------------------------------
 
@@ -5172,7 +5175,8 @@ INSERT INTO `markable_likes` (`id`, `user_id`, `markable_type`, `markable_id`, `
 (1, 7, 'App\\Models\\Book', 4937, NULL, NULL, '2022-12-14 15:53:37', '2022-12-14 15:53:37'),
 (2, 7, 'App\\Models\\Book', 4941, NULL, NULL, '2022-12-14 18:46:29', '2022-12-14 18:46:29'),
 (3, 1, 'App\\Models\\Book', 4940, NULL, NULL, '2022-12-15 08:46:33', '2022-12-15 08:46:33'),
-(4, 9, 'App\\Models\\Book', 4937, NULL, NULL, '2022-12-15 08:49:03', '2022-12-15 08:49:03');
+(4, 9, 'App\\Models\\Book', 4937, NULL, NULL, '2022-12-15 08:49:03', '2022-12-15 08:49:03'),
+(5, 10, 'App\\Models\\Book', 4937, NULL, NULL, '2022-12-15 20:54:20', '2022-12-15 20:54:20');
 
 -- --------------------------------------------------------
 
@@ -5240,7 +5244,8 @@ INSERT INTO `model_has_roles` (`role_id`, `model_type`, `model_id`) VALUES
 (2, 'App\\Models\\User', 6),
 (2, 'App\\Models\\User', 7),
 (2, 'App\\Models\\User', 8),
-(2, 'App\\Models\\User', 9);
+(2, 'App\\Models\\User', 9),
+(2, 'App\\Models\\User', 10);
 
 -- --------------------------------------------------------
 
@@ -5404,11 +5409,12 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'Admin Admin', 'admin@admin.com', NULL, '$2y$10$7W/4HEQbbdkK2U7IBJeKB.TK/aTLmzZYkwhc1ucz9OphMUIbtUzKO', NULL, '2022-12-13 23:20:28', '2022-12-13 23:20:28'),
+(1, 'Admin Admin', 'admin@admin.com', NULL, '$2y$10$7W/4HEQbbdkK2U7IBJeKB.TK/aTLmzZYkwhc1ucz9OphMUIbtUzKO', 'UCC9bp1HODDESxHEyUPOHDmkMjeKvTqtPrYiUVMr7b6ftMR2ok08AyqNdG4M', '2022-12-13 23:20:28', '2022-12-13 23:20:28'),
 (6, 'Malik', 'malik@gmail.com', NULL, '$2y$10$Z3FAr0dEYB1trqP33iAwuONt/4AZITFVI2yMsiIAySUrho94BYWtO', NULL, '2022-12-14 03:33:58', '2022-12-14 03:33:58'),
 (7, 'Bryleen', 'bry@david.com', NULL, '$2y$10$D1tpMrKbI0O3l9tXoybLkOz8nvWKr3XRdTfk4PVsa8JQHTM.OQN3G', NULL, '2022-12-14 03:53:16', '2022-12-14 03:53:16'),
 (8, 'David', 'davidjtweve@gmail.com', NULL, '$2y$10$0oa7aWciDQm1ucwd7YJXz.GArdH8TdyNsla.DikzXX.1AxeUPXTCS', NULL, '2022-12-14 05:21:55', '2022-12-14 05:21:55'),
-(9, 'Loreen', 'Lyn@david.com', NULL, '$2y$10$P9KPYvlfL1jVpFE71rTSROZEC9xaOqjlWzZNhjHVGpIB0QZlfH402', NULL, '2022-12-15 08:48:12', '2022-12-15 08:48:12');
+(9, 'Loreen', 'Lyn@david.com', NULL, '$2y$10$P9KPYvlfL1jVpFE71rTSROZEC9xaOqjlWzZNhjHVGpIB0QZlfH402', NULL, '2022-12-15 08:48:12', '2022-12-15 08:48:12'),
+(10, 'Arianna', 'arie@david.com', NULL, '$2y$10$PbLSz9rIhq82z4VTTnGteOJWJe9uoeCLf9ZMWinQnI/ykUxeDu2OG', NULL, '2022-12-15 20:54:06', '2022-12-15 20:54:06');
 
 --
 -- Indexes for dumped tables
@@ -5525,7 +5531,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `books`
 --
 ALTER TABLE `books`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5003;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5004;
 
 --
 -- AUTO_INCREMENT for table `book_likes`
@@ -5537,7 +5543,7 @@ ALTER TABLE `book_likes`
 -- AUTO_INCREMENT for table `comments`
 --
 ALTER TABLE `comments`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `failed_jobs`
@@ -5549,13 +5555,13 @@ ALTER TABLE `failed_jobs`
 -- AUTO_INCREMENT for table `markable_favorites`
 --
 ALTER TABLE `markable_favorites`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `markable_likes`
 --
 ALTER TABLE `markable_likes`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `migrations`
@@ -5585,7 +5591,7 @@ ALTER TABLE `roles`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- Constraints for dumped tables

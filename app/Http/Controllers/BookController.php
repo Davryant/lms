@@ -26,9 +26,17 @@ class BookController extends Controller
      */
     public function index()
     {
-        $books = Book::latest()->paginate(5);
-        return view('books.index',compact('books'))
-            ->with('i', (request()->input('page', 1) - 1) * 5);
+        try {
+                $books = Book::latest()->paginate(5);
+                return view('books.index',compact('books'))
+                    ->with('i', (request()->input('page', 1) - 1) * 5);
+            } catch (\Exception $ex) {
+                    return response()->json([
+                    'message'       => "Internal server error",
+                    'status_code'   => 500,
+                ]);
+            }
+
     }
 
     /**
@@ -49,14 +57,22 @@ class BookController extends Controller
      */
     public function store(Request $request)
     {
-        request()->validate([
-            'name' => 'required',
-            'author_name' => 'required',
-        ]);
-    
-        Book::create($request->all());
-    
-        return redirect()->route('books.index')->with('success','Book created successfully.');
+        try {
+            request()->validate([
+                'name' => 'required',
+                'author_name' => 'required',
+            ]);
+        
+            Book::create($request->all());
+        
+            return redirect()->route('books.index')->with('success','Book created successfully.');
+        } catch (\Exception $ex) {
+                return response()->json([
+                'message'       => "Internal server error",
+                'status_code'   => 500,
+            ]);
+        }
+
     }
 
     /**
@@ -67,19 +83,27 @@ class BookController extends Controller
      */
     public function show(Book $book)
     {
-        $like = Book::where('id',$book->id)->whereHasLike(
-            auth()->user()
-        )->get(); // returns the book model with a like from the given user
+        try {
+            $like = Book::where('id',$book->id)->whereHasLike(
+                auth()->user()
+            )->get(); // returns the book model with a like from the given user
 
-        $likeCount = Book::where('id',$book->id)->firstOrFail()->likes; // returns the collection of like marks related to the book
+            $likeCount = Book::where('id',$book->id)->firstOrFail()->likes; // returns the collection of like marks related to the book
 
-        $favorite = Book::where('id',$book->id)->whereHasFavorite(
-            auth()->user()
-        )->get(); // returns the book model with a favorite from the given user
+            $favorite = Book::where('id',$book->id)->whereHasFavorite(
+                auth()->user()
+            )->get(); // returns the book model with a favorite from the given user
 
-        $favoriteCount = Book::where('id',$book->id)->firstOrFail()->favorites; // returns the collection of favorite marks related to the book
+            $favoriteCount = Book::where('id',$book->id)->firstOrFail()->favorites; // returns the collection of favorite marks related to the book
 
-        return view('books.show',compact('book', 'like','favorite','likeCount','favoriteCount'));
+            return view('books.show',compact('book', 'like','favorite','likeCount','favoriteCount'));
+        } catch (\Exception $ex) {
+                return response()->json([
+                'message'       => "Internal server error",
+                'status_code'   => 500,
+            ]);
+        }
+
     }
 
     /**
@@ -102,68 +126,97 @@ class BookController extends Controller
      */
     public function update(Request $request, Book $book)
     {
-        request()->validate([
-            'name' => 'required',
-            'author_name' => 'required',
-        ]);
-    
-        $book->update($request->all());
-    
-        return redirect()->route('books.index')->with('success','Book updated successfully');
+        try {
+            request()->validate([
+                'name' => 'required',
+                'author_name' => 'required',
+            ]);
+        
+            $book->update($request->all());
+        
+            return redirect()->route('books.index')->with('success','Book updated successfully');
+        } catch (\Exception $ex) {
+                return response()->json([
+                'message'       => "Internal server error",
+                'status_code'   => 500,
+            ]);
+        }
+
     }
 
 
     public function likeBook(Request $request, $id)
     {
-        $book = Book::where('id', $id)->firstOrFail();
-        $user = Auth::user();
-        
-        $liked = Like::add($book, $user); // marks the book liked by specific user
+        try {
+            $book = Book::where('id', $id)->firstOrFail();
+            $user = Auth::user();
+            
+            $liked = Like::add($book, $user); // marks the book liked by specific user
 
-        if($liked){
-          return response()->json(['message' => 'book liked', 'code' => '200', 'data' => $liked]);
-        }
-        else
-        {
-          return response()->json(['message' => 'Liking a book failed', 'code' => '201']);
+            if($liked){
+            return response()->json(['message' => 'book liked', 'code' => '200', 'data' => $liked]);
+            }
+            else
+            {
+            return response()->json(['message' => 'Liking a book failed', 'code' => '201']);
+            }
+        } catch (\Exception $ex) {
+                return response()->json([
+                'message'       => "Internal server error",
+                'status_code'   => 500,
+            ]);
         }
 
     }
 
     public function favoriteBook(Request $request, $id)
     {
-        $book = Book::where('id', $id)->firstOrFail();
-        $user = Auth::user();
+        try {
+            $book = Book::where('id', $id)->firstOrFail();
+            $user = Auth::user();
+            
+            $favorited = Favorite::add($book, $user); // marks the book favorited by specific user
+
+
+            if($favorited){
+            return response()->json(['message' => 'book added as favorite', 'code' => '200', 'data' => $favorited]);
+            }
+            else
+            {
+            return response()->json(['message' => 'favoriting a book failed', 'code' => '201']);
+            }
         
-        $favorited = Favorite::add($book, $user); // marks the book favorited by specific user
-
-
-        if($favorited){
-          return response()->json(['message' => 'book added as favorite', 'code' => '200', 'data' => $favorited]);
-        }
-        else
-        {
-          return response()->json(['message' => 'favoriting a book failed', 'code' => '201']);
+        } catch (\Exception $ex) {
+                return response()->json([
+                'message'       => "Internal server error",
+                'status_code'   => 500,
+            ]);
         }
 
     }
 
     public function favoriteRemove(Request $request, $id)
     {
-        $book = Book::where('id', $id)->firstOrFail();
-        $user = Auth::user();
-        
-        $unfavorited = Favorite::remove($book, $user); // marks the book removed as a favorite by specific user
+        try {
+            $book = Book::where('id', $id)->firstOrFail();
+            $user = Auth::user();
+            
+            $unfavorited = Favorite::remove($book, $user); // marks the book removed as a favorite by specific user
 
 
-        if($unfavorited){
-          return response()->json(['message' => 'book removed as favorite', 'code' => '200', 'data' => $unfavorited]);
+            if($unfavorited){
+            return response()->json(['message' => 'book removed as favorite', 'code' => '200', 'data' => $unfavorited]);
+            }
+            else
+            {
+            return response()->json(['message' => 'unfavoriting a book failed', 'code' => '201']);
+            }
+        } catch (\Exception $ex) {
+                return response()->json([
+                'message'       => "Internal server error",
+                'status_code'   => 500,
+            ]);
         }
-        else
-        {
-          return response()->json(['message' => 'unfavoriting a book failed', 'code' => '201']);
-        }
-
     }
 
     /**
@@ -174,8 +227,16 @@ class BookController extends Controller
      */
     public function destroy(Book $book)
     {
-        $book->delete();
-    
-        return redirect()->route('books.index')->with('success','Book deleted successfully');
+        try {
+                $book->delete();
+            
+                return redirect()->route('books.index')->with('success','Book deleted successfully');
+            } catch (\Exception $ex) {
+                return response()->json([
+                'message'       => "Internal server error",
+                'status_code'   => 500,
+            ]);
+        }
+
     }
 }

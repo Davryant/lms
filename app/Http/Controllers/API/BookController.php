@@ -19,11 +19,19 @@ class BookController extends BaseController
      */
     public function index(Request $request)
     {
-        // return $request->header('Authorization');
-        $books = Book::paginate(10);
-        
-        return response()->json(['responseCode' => '200','responseMessage' => 'Books retrieved successfully', 'Books' => $books]);
-        // return $this->sendResponse(BookResource::collection($books), 'Books retrieved successfully.');
+        try {
+                // return $request->header('Authorization');
+                $books = Book::paginate(10);
+                
+                return response()->json(['responseCode' => '200','responseMessage' => 'Books retrieved successfully', 'Books' => $books]);
+                // return $this->sendResponse(BookResource::collection($books), 'Books retrieved successfully.');
+            } catch (\Exception $ex) {
+                    return response()->json([
+                    'message'       => "Internal server error",
+                    'status_code'   => 500,
+                ]);
+            }
+
     }
 
     public function popularBook()
@@ -33,25 +41,29 @@ class BookController extends BaseController
         //     $book = Book::where('id', $book->id)->firstOrFail();
         //     $bookMostLike_old = Like::count($book);
         // }
-
-        $bookMostLike = DB::table('markable_likes')->selectRaw('markable_id as book_id, count(*) as number_of_likes')
-                        ->where('markable_type', 'App\Models\Book')
-                        ->groupBy('book_id')
-                        ->orderBy('number_of_likes', 'DESC')
-                        ->get();
-
-
-        // dd($bookMostLike);
-     
-        if($bookMostLike)
-        {
-         return response()->json(['responseCode' => '200','responseMessage' => 'Success', 'Popular Books' => $bookMostLike]);   
-        }
-        else
-        {
-            return response()->json(['responseCode' => '101','responseMessage' => 'No data', 'Popular Books' => 'NULL']);
-        }
-        
+        try {
+                $bookMostLike = DB::table('markable_likes')->selectRaw('markable_id as book_id, count(*) as number_of_likes')
+                                ->where('markable_type', 'App\Models\Book')
+                                ->groupBy('book_id')
+                                ->orderBy('number_of_likes', 'DESC')
+                                ->take(3)
+                                ->get();
+                // dd($bookMostLike);
+            
+                if($bookMostLike)
+                {
+                return response()->json(['responseCode' => '200','responseMessage' => 'Success', 'Popular Books' => $bookMostLike]);   
+                }
+                else
+                {
+                    return response()->json(['responseCode' => '101','responseMessage' => 'No data', 'Popular Books' => 'NULL']);
+                }
+            } catch (\Exception $ex) {
+                return response()->json([
+                'message'       => "Internal server error",
+                'status_code'   => 500,
+                ]);
+            }
     }
     /**
      * Store a newly created resource in storage.
@@ -61,20 +73,28 @@ class BookController extends BaseController
      */
     public function store(Request $request)
     {
-        $input = $request->all();
-   
-        $validator = Validator::make($input, [
-            'name' => 'required',
-            'author_name' => 'required'
-        ]);
-   
-        if($validator->fails()){
-            return $this->sendError('Validation Error.', $validator->errors());       
-        }
-   
-        $book = Book::create($input);
-   
-        return $this->sendResponse(new BookResource($book), 'Book created successfully.');
+        try {
+                $input = $request->all();
+        
+                $validator = Validator::make($input, [
+                    'name' => 'required',
+                    'author_name' => 'required'
+                ]);
+        
+                if($validator->fails()){
+                    return $this->sendError('Validation Error.', $validator->errors());       
+                }
+        
+                $book = Book::create($input);
+        
+                return $this->sendResponse(new BookResource($book), 'Book created successfully.');
+            } catch (\Exception $ex) {
+                return response()->json([
+                'message'       => "Internal server error",
+                'status_code'   => 500,
+                ]);
+            }
+
     } 
    
     /**
@@ -103,22 +123,30 @@ class BookController extends BaseController
      */
     public function update(Request $request, Product $product)
     {
-        $input = $request->all();
-   
-        $validator = Validator::make($input, [
-            'name' => 'required',
-            'author_name' => 'required'
-        ]);
-   
-        if($validator->fails()){
-            return $this->sendError('Validation Error.', $validator->errors());       
-        }
-   
-        $book->name = $input['name'];
-        $book->author_name = $input['author_name'];
-        $book->save();
-   
-        return $this->sendResponse(new BookResource($book), 'Book updated successfully.');
+        try {
+                $input = $request->all();
+        
+                $validator = Validator::make($input, [
+                    'name' => 'required',
+                    'author_name' => 'required'
+                ]);
+        
+                if($validator->fails()){
+                    return $this->sendError('Validation Error.', $validator->errors());       
+                }
+        
+                $book->name = $input['name'];
+                $book->author_name = $input['author_name'];
+                $book->save();
+        
+                return $this->sendResponse(new BookResource($book), 'Book updated successfully.');
+            } catch (\Exception $ex) {
+                return response()->json([
+                'message'       => "Internal server error",
+                'status_code'   => 500,
+                ]);
+            }
+
     }
    
     /**

@@ -35,13 +35,21 @@ class CommentController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'comment'=>'required',
-        ]);
-    
-        Comment::create($request->all());
-    
-        return back()->with('success','Commented successfully.');
+        try {
+                $request->validate([
+                    'comment'=>'required',
+                ]);
+            
+                Comment::create($request->all());
+            
+                return back()->with('success','Commented successfully.');
+            } catch (\Exception $ex) {
+                    return response()->json([
+                    'message'       => "Internal server error",
+                    'status_code'   => 500,
+                ]);
+            }
+
     }
 
     /**

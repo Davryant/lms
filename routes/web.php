@@ -36,6 +36,7 @@ Route::group(['middleware' => ['auth']], function() {
     
     Route::post('/books/like-book/{id}', 'App\Http\Controllers\BookController@likeBook');
     Route::post('/books/favorite-book/{id}', 'App\Http\Controllers\BookController@favoriteBook');
+    Route::post('/books/favorite-remove/{id}', 'App\Http\Controllers\BookController@favoriteRemove');
 });
 
 // Route::get('/user/create', [UserController::class, 'create'])->name('create');

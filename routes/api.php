@@ -32,11 +32,5 @@ Route::resource('books', BookController::class)->middleware("checkToken");
 
 //popular books
 Route::controller(BookController::class)->group(function(){
-    Route::get('popular_book', 'popularBook')->middleware("checkToken");
+    Route::get('popular_books', 'popularBook')->middleware("checkToken");
 });
-     
-
-
-// Route::middleware('auth:sanctum')->group( function () {
-//     Route::resource('books', App\Http\Controllers\API\BookController::class);
-// });

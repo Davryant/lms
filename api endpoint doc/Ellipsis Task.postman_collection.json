@@ -1,0 +1,299 @@
+{
+    "info": {
+        "_postman_id": "27ee22fd-2a51-486a-8637-00e0727fde2d",
+        "name": "Ellipsis Task",
+        "description": "# Introduction\nAPI endpoints for library management system.\n\n# Overview\nThis API should be accessed by authenticated users via API tokens.\n\n# Authentication\nApi token (Bearer token)\n2d0a15cbc652f53fb062372f73b6e120fe31ca4381aeafebb8289280e24f66e2\n",
+        "schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+    },
+    "item": [
+        {
+            "name": "localhost/lms/api/books",
+            "protocolProfileBehavior": {
+                "disableBodyPruning": true
+            },
+            "request": {
+                "method": "GET",
+                "url": "localhost/lms/api/books",
+                "description": "All books (Paginated)"
+            },
+            "response": [
+                {
+                    "name": "localhost/lms/api/books",
+                    "originalRequest": {
+                        "method": "GET",
+                        "url": "localhost/lms/api/books"
+                    },
+                    "status": "OK",
+                    "code": 200,
+                    "_postman_previewlanguage": "json",
+                    "header": [
+                        {
+                            "key": "Date",
+                            "value": "Thu, 15 Dec 2022 22:54:27 GMT"
+                        },
+                        {
+                            "key": "Server",
+                            "value": "Apache/2.4.53 (Win64) OpenSSL/1.1.1n PHP/8.1.6"
+                        },
+                        {
+                            "key": "X-Powered-By",
+                            "value": "PHP/8.1.6"
+                        },
+                        {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                        }
+                    ],
+
+                    "body": [
+
+                        {
+                            "responseCode": "200",
+                            "responseMessage": "Books retrieved successfully",
+                            "Books": {
+                                "current_page": 1,
+                                "data": [
+                                    {
+                                        "id": 1,
+                                        "name": "Your welcome 2023",
+                                        "author_name": "Doumbia",
+                                        "created_at": "2022-12-14T09:58:27.000000Z",
+                                        "updated_at": "2022-12-14T09:58:27.000000Z",
+                                        "deleted_at": null
+                                    },
+                                    {
+                                        "id": 2,
+                                        "name": "The beginning",
+                                        "author_name": "Teshazi",
+                                        "created_at": "2022-12-14T09:58:27.000000Z",
+                                        "updated_at": "2022-12-14T09:58:27.000000Z",
+                                        "deleted_at": null
+                                    },
+                                    {
+                                        "id": 3,
+                                        "name": "9nNm8leATFGIhFWfo0Jc",
+                                        "author_name": "nQKHvIP5gJ8iX3p",
+                                        "created_at": "2022-12-14T09:59:13.000000Z",
+                                        "updated_at": "2022-12-14T09:59:13.000000Z",
+                                        "deleted_at": null
+                                    },
+                                    {
+                                        "id": 4,
+                                        "name": "ZyJEKqOAt2fm8lHLNccg",
+                                        "author_name": "DkK2FHiYYtwTYrC",
+                                        "created_at": "2022-12-14T09:59:13.000000Z",
+                                        "updated_at": "2022-12-14T09:59:13.000000Z",
+                                        "deleted_at": null
+                                    },
+                                    {
+                                        "id": 5,
+                                        "name": "vmCkccWfZ3byihKq3oE1",
+                                        "author_name": "U0eM7T0h1EXmk6I",
+                                        "created_at": "2022-12-14T09:59:13.000000Z",
+                                        "updated_at": "2022-12-14T09:59:13.000000Z",
+                                        "deleted_at": null
+                                    },
+                                    {
+                                        "id": 6,
+                                        "name": "FYvfTFb57uhnm0KbIDY6",
+                                        "author_name": "c2dVPilgGQ7hLtu",
+                                        "created_at": "2022-12-14T09:59:13.000000Z",
+                                        "updated_at": "2022-12-14T09:59:13.000000Z",
+                                        "deleted_at": null
+                                    },
+                                    {
+                                        "id": 7,
+                                        "name": "HaOyE5y5kNGLyqojXc4s",
+                                        "author_name": "WWEhq2AhH0694Ga",
+                                        "created_at": "2022-12-14T09:59:13.000000Z",
+                                        "updated_at": "2022-12-14T09:59:13.000000Z",
+                                        "deleted_at": null
+                                    },
+                                    {
+                                        "id": 8,
+                                        "name": "SAjuLjKcJiTI5EGp6RqB",
+                                        "author_name": "AqJduOxjAbc05CF",
+                                        "created_at": "2022-12-14T09:59:13.000000Z",
+                                        "updated_at": "2022-12-14T09:59:13.000000Z",
+                                        "deleted_at": null
+                                    },
+                                    {
+                                        "id": 9,
+                                        "name": "OsxDhfhvChuqBmvJinX4",
+                                        "author_name": "Mo7MseOBWOz6t4F",
+                                        "created_at": "2022-12-14T09:59:13.000000Z",
+                                        "updated_at": "2022-12-14T09:59:13.000000Z",
+                                        "deleted_at": null
+                                    },
+                                    {
+                                        "id": 10,
+                                        "name": "mvP5QYYApJQscPWDE9Fw",
+                                        "author_name": "kFycM98R3kXoyuB",
+                                        "created_at": "2022-12-14T09:59:13.000000Z",
+                                        "updated_at": "2022-12-14T09:59:13.000000Z",
+                                        "deleted_at": null
+                                    }
+                                ],
+                                "first_page_url": "http:\/\/localhost\/lms\/api\/books?page=1",
+                                "from": 1,
+                                "last_page": 501,
+                                "last_page_url": "http:\/\/localhost\/lms\/api\/books?page=501",
+                                "links": [
+                                    {
+                                        "url": null,
+                                        "label": "&laquo; Previous",
+                                        "active": false
+                                    },
+                                    {
+                                        "url": "http:\/\/localhost\/lms\/api\/books?page=1",
+                                        "label": "1",
+                                        "active": true
+                                    },
+                                    {
+                                        "url": "http:\/\/localhost\/lms\/api\/books?page=2",
+                                        "label": "2",
+                                        "active": false
+                                    },
+                                    {
+                                        "url": "http:\/\/localhost\/lms\/api\/books?page=3",
+                                        "label": "3",
+                                        "active": false
+                                    },
+                                    {
+                                        "url": "http:\/\/localhost\/lms\/api\/books?page=4",
+                                        "label": "4",
+                                        "active": false
+                                    },
+                                    {
+                                        "url": "http:\/\/localhost\/lms\/api\/books?page=5",
+                                        "label": "5",
+                                        "active": false
+                                    },
+                                    {
+                                        "url": "http:\/\/localhost\/lms\/api\/books?page=6",
+                                        "label": "6",
+                                        "active": false
+                                    },
+                                    {
+                                        "url": "http:\/\/localhost\/lms\/api\/books?page=7",
+                                        "label": "7",
+                                        "active": false
+                                    },
+                                    {
+                                        "url": "http:\/\/localhost\/lms\/api\/books?page=8",
+                                        "label": "8",
+                                        "active": false
+                                    },
+                                    {
+                                        "url": "http:\/\/localhost\/lms\/api\/books?page=9",
+                                        "label": "9",
+                                        "active": false
+                                    },
+                                    {
+                                        "url": "http:\/\/localhost\/lms\/api\/books?page=10",
+                                        "label": "10",
+                                        "active": false
+                                    },
+                                    {
+                                        "url": null,
+                                        "label": "...",
+                                        "active": false
+                                    },
+                                    {
+                                        "url": "http:\/\/localhost\/lms\/api\/books?page=500",
+                                        "label": "500",
+                                        "active": false
+                                    },
+                                    {
+                                        "url": "http:\/\/localhost\/lms\/api\/books?page=501",
+                                        "label": "501",
+                                        "active": false
+                                    },
+                                    {
+                                        "url": "http:\/\/localhost\/lms\/api\/books?page=2",
+                                        "label": "Next &raquo;",
+                                        "active": false
+                                    }
+                                ],
+                                "next_page_url": "http:\/\/localhost\/lms\/api\/books?page=2",
+                                "path": "http:\/\/localhost\/lms\/api\/books",
+                                "per_page": 10,
+                                "prev_page_url": null,
+                                "to": 10,
+                                "total": 5003
+                            }
+                        }
+                    ]
+
+                }
+            ]
+        },
+        {
+            "name": "localhost/lms/api/popular_books",
+            "protocolProfileBehavior": {
+                "disableBodyPruning": true
+            },
+            "request": {
+                "method": "GET",
+                "url": "localhost/lms/api/popular_books",
+                "description": "Popular books (Books with the most likes)"
+            },
+            "response": [
+                {
+                    "name": "localhost/lms/api/popular_books",
+                    "originalRequest": {
+                        "method": "GET",
+                        "url": "localhost/lms/api/popular_books"
+                    },
+                    "status": "OK",
+                    "code": 200,
+                    "_postman_previewlanguage": "json",
+                    "header": [
+                        {
+                            "key": "Date",
+                            "value": "Thu, 15 Dec 2022 23:05:25 GMT"
+                        },
+                        {
+                            "key": "Server",
+                            "value": "Apache/2.4.53 (Win64) OpenSSL/1.1.1n PHP/8.1.6"
+                        },
+                        {
+                            "key": "Vary",
+                            "value": "Authorization"
+                        },
+                        {
+                            "key": "X-Powered-By",
+                            "value": "PHP/8.1.6"
+                        },
+                        {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                        }
+                    ],
+                    "body": [
+                        {
+                            "responseCode": "200",
+                            "responseMessage": "Success",
+                            "Popular Books": [
+                                {
+                                    "book_id": 4937,
+                                    "number_of_likes": 3
+                                },
+                                {
+                                    "book_id": 4940,
+                                    "number_of_likes": 1
+                                },
+                                {
+                                    "book_id": 4941,
+                                    "number_of_likes": 1
+                                }
+                            ]
+                        }
+                    ]
+
+
+                }
+            ]
+        }
+    ]
+}

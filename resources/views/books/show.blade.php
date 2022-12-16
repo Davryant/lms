@@ -66,7 +66,7 @@
                         </div>
                         <div class="col-1" style="padding:10px">
                             @if(count($favorite) > 0)
-                            <i onclick="removefavorite({{ $book->id }})" class="fa fa-heart" style="color:orange;" title="Favorited"></i>
+                            <i onclick="removefavorite({{ $book->id }})" class="fa fa-heart" style="color:orange;" title="unfavorite"></i>
                             <strong><span>{{count($favoriteCount)}}</span></strong>
                             @else
                             <i onclick="favoriteFunction({{ $book->id }})" class="fa fa-heart" title="Add Favorite"></i>

@@ -52,6 +52,6 @@
 </table>
 
 
-{!! $data->render() !!}
+{!! $data->render('pagination::bootstrap-5') !!}
 
 @endsection

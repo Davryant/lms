@@ -20,10 +20,10 @@ class BookController extends BaseController
     public function index(Request $request)
     {
         // return $request->header('Authorization');
-        // $books = Book::all();
-        $books = Book::paginate(request()->all());
-    
-        return $this->sendResponse(BookResource::collection($books), 'Books retrieved successfully.');
+        $books = Book::paginate(10);
+        
+        return response()->json(['responseCode' => '200','responseMessage' => 'Books retrieved successfully', 'Books' => $books]);
+        // return $this->sendResponse(BookResource::collection($books), 'Books retrieved successfully.');
     }
 
     public function popularBook()
@@ -34,9 +34,9 @@ class BookController extends BaseController
         //     $bookMostLike_old = Like::count($book);
         // }
 
-        $bookMostLike = DB::table('markable_likes')->selectRaw('markable_id, count(*) as number_of_likes')
+        $bookMostLike = DB::table('markable_likes')->selectRaw('markable_id as book_id, count(*) as number_of_likes')
                         ->where('markable_type', 'App\Models\Book')
-                        ->groupBy('markable_id')
+                        ->groupBy('book_id')
                         ->orderBy('number_of_likes', 'DESC')
                         ->get();
 

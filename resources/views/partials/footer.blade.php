@@ -104,4 +104,40 @@
                 });
             }
          }
+
+         function removefavorite(id){
+          var book_id = id;
+        
+          console.log(book_id);
+          // alert(book_id);
+
+          $.ajaxSetup({
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        }
+                    });
+        
+
+            if(book_id !=""){
+
+                $.ajax({
+                    url: "{{URL::asset('/books/favorite-remove')}}/"+book_id,
+                    type: 'post',
+                    data: {
+                      book_id: book_id,
+                    },
+    
+                    success: function(response){
+                      console.log(response);
+                        window.location.reload();
+                    },
+                    error: function(response) {
+                      console.log('error');
+                      window.location.reload();
+    
+                  }
+    
+                });
+            }
+         }
 </script>

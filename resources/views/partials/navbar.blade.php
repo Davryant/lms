@@ -21,12 +21,12 @@
                             <li><a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a></li>
                             <li><a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a></li>
                         @else
-                            @can('role-list')
+                            @can('user-list')
                             <li><a class="nav-link" href="{{ route('users.index') }}">Manage Users</a></li>
                             @endcan
-                            @can('user-list')
-                            <li><a class="nav-link" href="{{ route('roles.index') }}">Manage Role</a></li>
-                            @endcan
+                            {{-- @can('role-list')
+                            <li><a class="nav-link" href="#">Manage Roles</a></li>
+                            @endcan --}}
                             @can('book-list')
                             <li><a class="nav-link" href="{{ route('books.index') }}">Books List</a></li>
                             @endcan

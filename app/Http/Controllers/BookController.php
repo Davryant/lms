@@ -148,6 +148,24 @@ class BookController extends Controller
 
     }
 
+    public function favoriteRemove(Request $request, $id)
+    {
+        $book = Book::where('id', $id)->firstOrFail();
+        $user = Auth::user();
+        
+        $unfavorited = Favorite::remove($book, $user); // marks the book removed as a favorite by specific user
+
+
+        if($unfavorited){
+          return response()->json(['message' => 'book removed as favorite', 'code' => '200', 'data' => $unfavorited]);
+        }
+        else
+        {
+          return response()->json(['message' => 'unfavoriting a book failed', 'code' => '201']);
+        }
+
+    }
+
     /**
      * Remove the specified resource from storage.
      *
